@@ -275,7 +275,7 @@ public class RecipeFragment extends Fragment {
                                                                         combinedCanvas.drawBitmap(bitmap, 0, recipeImage.getHeight(), null);
 
                                                                         // Get the combined image uri
-                                                                        Uri bmpUri = saveImage(combinedBitmap, getContext());
+                                                                        Uri bmpUri = saveImage(combinedBitmap, recipeID+".jpg", getContext());
 
                                                                         // Share Intent
                                                                         Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -422,13 +422,13 @@ public class RecipeFragment extends Fragment {
         }
     }
 
-    private Uri saveImage(Bitmap image, Context context) {
+    private Uri saveImage(Bitmap image, String fileName, Context context) {
         File imagesFolder = new File(context.getCacheDir(), "images");
         Uri uri = null;
 
         try {
             imagesFolder.mkdirs();
-            File file = new File(imagesFolder, "shared_images.jpg");
+            File file = new File(imagesFolder, fileName);
             FileOutputStream stream = new FileOutputStream(file);
 
             // Compress image
