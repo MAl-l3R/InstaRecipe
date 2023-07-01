@@ -1,0 +1,70 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.example.instarecipe'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.instarecipe"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // App Compat Activity
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    // Material Button
+    implementation 'com.google.android.material:material:1.7.0'
+    // Constraint Layout
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    // Recycler View
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    // Circle profile pic
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    // Add the dependency for Firebase Authentication library. Don't specify version when using BoM
+    implementation 'com.google.firebase:firebase-auth'
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    // Firebase storage
+    implementation 'com.google.firebase:firebase-storage:20.2.0'
+    // Firestore database
+    implementation 'com.google.firebase:firebase-firestore:24.6.0'
+    // App Settings
+    implementation 'pub.devrel:easypermissions:3.0.0'
+    // Image Cropper
+    implementation 'com.github.yalantis:ucrop:2.2.6-native'
+    // Glide (a fast and efficient image loading framework) [OR you could use Picasso]
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+    // Tests
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

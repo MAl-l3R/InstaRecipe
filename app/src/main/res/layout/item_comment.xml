@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="7dp"
+    android:elevation="10dp"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="10dp"
+    android:id="@+id/comment_card"
+    android:visibility="invisible" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"
+        android:background="@color/colorOnBase" >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/profile_pic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/username" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_pic_white_outline"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/profile_pic_white_outline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/username" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="username"
+            android:textColor="@color/user_name_text_color"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:maxEms="7"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profile_pic_white_outline" />
+
+        <TextView
+            android:id="@+id/separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" • "
+            android:textColor="@color/user_name_text_color"
+            android:textSize="18sp"
+            android:layout_marginStart="7dp"
+            app:layout_constraintTop_toTopOf="@id/username"
+            app:layout_constraintStart_toEndOf="@id/username"
+            app:layout_constraintBottom_toBottomOf="@id/username"/>
+
+        <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0s"
+            android:textColor="@color/user_name_text_color"
+            android:textSize="16sp"
+            android:layout_marginStart="7dp"
+            app:layout_constraintTop_toTopOf="@id/separator"
+            app:layout_constraintStart_toEndOf="@id/separator"
+            app:layout_constraintBottom_toBottomOf="@id/separator"/>
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/livvic_medium"
+            android:text="Comment"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/username"
+            app:layout_constraintStart_toEndOf="@id/profile_pic_white_outline"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

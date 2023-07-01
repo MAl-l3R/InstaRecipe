@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "572567937047",
+    "project_id": "instarecipe-c2b09",
+    "storage_bucket": "instarecipe-c2b09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572567937047:android:8de41063fbfde4c3377c52",
+        "android_client_info": {
+          "package_name": "com.example.instarecipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572567937047-ictpv6i6tdfvbd87ho9p8sckhd3kogfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAM2ZyHEKgxWLV0JsqYlFcu9Xol_9JL1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572567937047-ictpv6i6tdfvbd87ho9p8sckhd3kogfm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

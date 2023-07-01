@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="5dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="15dp"
+    android:backgroundTint="@color/colorOnBase"
+    android:visibility="invisible"
+    android:id="@+id/user_card" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorOnBase"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/profile_pic"
+            android:layout_marginTop="2dp"
+            android:paddingTop="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/comment" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_pic_white_outline"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="5dp"
+            android:background="@drawable/profile_pic_white_outline"
+            app:layout_constraintBottom_toBottomOf="@+id/name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/comment" />
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/livvic_medium"
+            android:text="Username"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:ems="10"
+            android:maxLines="1"
+            android:layout_marginLeft="7dp"
+            android:paddingVertical="3dp"
+            app:layout_constraintStart_toEndOf="@+id/profile_pic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/livvic_medium"
+            android:text="Name"
+            android:textColor="@color/user_name_text_color"
+            android:textSize="16sp"
+            android:ems="10"
+            android:maxLines="1"
+            android:layout_marginLeft="7dp"
+            android:paddingVertical="3dp"
+            app:layout_constraintStart_toEndOf="@+id/profile_pic"
+            app:layout_constraintTop_toBottomOf="@id/comment" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

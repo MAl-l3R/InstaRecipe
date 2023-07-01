@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBase" >
+
+    <ScrollView
+        android:id="@+id/recipeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="15dp"
+        android:layout_marginHorizontal="30dp"
+        android:background="@color/colorOnBase"
+        android:visibility="invisible" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recipe_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/food_pic"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:layout_margin="15dp"
+                android:background="@color/white"
+                android:cropToPadding="true"
+                android:padding="3dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/add_picture" />
+
+            <TextView
+                android:id="@+id/food_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:fontFamily="@font/livvic_medium"
+                android:text="Food Name"
+                android:layout_marginHorizontal="15dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/food_pic" />
+
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/livvic_medium"
+                android:text="28/04/03"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginHorizontal="15dp"
+                android:paddingHorizontal="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/food_name" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/like_comment_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="19dp"
+                android:paddingBottom="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timestamp">
+
+
+                <ImageView
+                    android:id="@+id/like_button"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/like_icon"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/comment_button" />
+
+                <TextView
+                    android:id="@+id/like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/livvic_medium"
+                    android:text="000"
+                    android:textAlignment="center"
+                    android:ems="5"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/like_button"
+                    app:layout_constraintStart_toStartOf="@id/like_button"
+                    app:layout_constraintEnd_toEndOf="@id/like_button" />
+
+                <ImageView
+                    android:id="@+id/comment_button"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/comment_icon"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/share_button" />
+
+                <ImageView
+                    android:id="@+id/share_button"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/share_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/profile_pic"
+                app:layout_constraintStart_toStartOf="@+id/food_name"
+                app:layout_constraintTop_toTopOf="@+id/comment" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_pic_white_outline"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/profile_pic_white_outline"
+                app:layout_constraintStart_toStartOf="@+id/food_name"
+                app:layout_constraintTop_toTopOf="@+id/comment" />
+
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:fontFamily="@font/livvic_medium"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="3dp"
+                android:text="Username"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:ems="9"
+                android:maxLines="1"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toEndOf="@+id/profile_pic"
+                app:layout_constraintTop_toBottomOf="@+id/like_comment_share" />
+
+            <ImageView
+                android:id="@+id/cookpot_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/cook_time_icon"
+                app:layout_constraintStart_toStartOf="@+id/profile_pic"
+                app:layout_constraintTop_toBottomOf="@+id/profile_pic" />
+
+            <TextView
+                android:id="@+id/cook_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/livvic_medium"
+                android:text="Cook Time"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:ems="9"
+                android:maxLines="1"
+                android:paddingVertical="3dp"
+                android:paddingHorizontal="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="7dp"
+                app:layout_constraintStart_toEndOf="@+id/cookpot_icon"
+                app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+
+            <ImageView
+                android:id="@+id/ingredients_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/ingredients_icon"
+                app:layout_constraintStart_toStartOf="@+id/cookpot_icon"
+                app:layout_constraintTop_toBottomOf="@+id/cookpot_icon" />
+
+            <TextView
+                android:id="@+id/ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="9dp"
+                android:ems="9"
+                android:fontFamily="@font/livvic_medium"
+                android:text="Ingredients"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/ingredients_icon"
+                app:layout_constraintTop_toBottomOf="@+id/cook_time" />
+
+            <TextView
+                android:id="@+id/recipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recipe"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:fontFamily="@font/livvic_medium"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="@+id/ingredients_icon"
+                app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+
+            <TextView
+                android:id="@+id/recipe_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/livvic_medium"
+                android:text="Recipe goes here..."
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textIsSelectable="true"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginHorizontal="30dp"
+                android:background="@color/editTextBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipe"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/big_like"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/big_like_icon"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
