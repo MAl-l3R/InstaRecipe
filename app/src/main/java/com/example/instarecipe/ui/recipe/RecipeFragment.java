@@ -1,20 +1,31 @@
 package com.example.instarecipe.ui.recipe;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -36,8 +47,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecipeFragment extends Fragment {
 
@@ -82,6 +98,7 @@ public class RecipeFragment extends Fragment {
                         TextView cookTimeTV = view.findViewById(R.id.cook_time);
                         TextView ingredientsTV = view.findViewById(R.id.ingredients);
                         TextView recipeTV = view.findViewById(R.id.recipe_text);
+                        TextView invisibleTV = view.findViewById(R.id.invisible_recipe_text);
 
                         // Check if user already liked this recipe
                         String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -209,6 +226,66 @@ public class RecipeFragment extends Fragment {
                                                                     fragmentTransaction.addToBackStack(null);
                                                                     // Commit the transaction
                                                                     fragmentTransaction.commit();
+                                                                }
+                                                            });
+
+                                                            // Share Button
+                                                            shareBtn.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    // Setup bitmap for sharing the recipe image
+                                                                    BitmapDrawable bitmapDrawable = (BitmapDrawable)foodPicIV.getDrawable();
+                                                                    if (bitmapDrawable != null) {
+                                                                        // Create an image containing the Recipe Image and the Recipe
+                                                                        String recipeText = "Recipe Name: \n" +
+                                                                                "\t" + name + "\n" +
+                                                                                "\n" +
+                                                                                "Created by: \n" +
+                                                                                "\t" + username + "\n" +
+                                                                                "\n" +
+                                                                                "Cook Time: \n" +
+                                                                                "\t" + cookTime + "\n" +
+                                                                                "\n" +
+                                                                                "Ingredients: \n" +
+                                                                                "\t" + ingredients + "\n" +
+                                                                                "\n" +
+                                                                                "Recipe:\n" +
+                                                                                "\t" + recipe;
+                                                                        invisibleTV.setText(recipeText);
+
+                                                                        // Measure the dimensions of the text view and calculate the required height
+                                                                        invisibleTV.measure(View.MeasureSpec.makeMeasureSpec(invisibleTV.getWidth(), View.MeasureSpec.EXACTLY),
+                                                                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                                                                        int width = invisibleTV.getMeasuredWidth();
+                                                                        int height = invisibleTV.getMeasuredHeight();
+
+                                                                        // Create a bitmap with the calculated dimensions
+                                                                        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                                                                        Canvas canvas = new Canvas(bitmap);
+                                                                        invisibleTV.layout(0, 0, width, height);
+                                                                        invisibleTV.draw(canvas);
+
+                                                                        // Load the recipe image bitmap
+                                                                        Bitmap recipeImage = bitmapDrawable.getBitmap();
+
+                                                                        // Create a new combined bitmap with the recipe image and the recipe
+                                                                        Bitmap combinedBitmap = Bitmap.createBitmap(recipeImage.getWidth(), recipeImage.getHeight() + height, Bitmap.Config.ARGB_8888);
+                                                                        Canvas combinedCanvas = new Canvas(combinedBitmap);
+                                                                        combinedCanvas.drawBitmap(recipeImage, 0, 0, null);
+                                                                        combinedCanvas.drawBitmap(bitmap, 0, recipeImage.getHeight(), null);
+
+                                                                        // Get the combined image uri
+                                                                        Uri bmpUri = saveImage(combinedBitmap, getContext());
+
+                                                                        // Share Intent
+                                                                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                                                        shareIntent.setType("image/jpeg");
+                                                                        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                                        shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+                                                                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, name);
+                                                                        startActivity(Intent.createChooser(shareIntent, "Share Recipe"));
+                                                                    }
                                                                 }
                                                             });
 
@@ -343,5 +420,31 @@ public class RecipeFragment extends Fragment {
             // Commit the transaction
             fragmentTransaction.commit();
         }
+    }
+
+    private Uri saveImage(Bitmap image, Context context) {
+        File imagesFolder = new File(context.getCacheDir(), "images");
+        Uri uri = null;
+
+        try {
+            imagesFolder.mkdirs();
+            File file = new File(imagesFolder, "shared_images.jpg");
+            FileOutputStream stream = new FileOutputStream(file);
+
+            // Compress image
+            image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            stream.flush();
+            stream.close();
+
+            // Get the uri now
+            uri = FileProvider.getUriForFile(Objects.requireNonNull(context.getApplicationContext()),
+                    "com.example.instarecipe.fileprovider", file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return uri;
     }
 }
