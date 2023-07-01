@@ -55,7 +55,7 @@ public class UserProfileFragment extends Fragment implements RecyclerViewInterfa
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         recyclerViewInterface = this;
 
@@ -81,7 +81,6 @@ public class UserProfileFragment extends Fragment implements RecyclerViewInterfa
 
                         // Get all UI items
                         ConstraintLayout profileFragment = view.findViewById(R.id.profile_fragment);
-                        ImageButton menuButton = view.findViewById(R.id.menu_button);
                         CircleImageView profilePicView = view.findViewById(R.id.profile_pic);
                         TextView nameView = view.findViewById(R.id.name);
                         TextView usernameView =  view.findViewById(R.id.comment);
@@ -153,7 +152,6 @@ public class UserProfileFragment extends Fragment implements RecyclerViewInterfa
 
                                             // Display the retrieved info
                                             Glide.with(getActivity()).load(profilePic).into(profilePicView);
-                                            menuButton.setVisibility(View.GONE);
                                             nameView.setText(name);
                                             usernameView.setText(username);
                                             followersCountView.setText(String.valueOf(followers));
