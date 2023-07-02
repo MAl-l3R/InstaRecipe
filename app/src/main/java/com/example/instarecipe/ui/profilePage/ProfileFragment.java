@@ -123,7 +123,7 @@ public class ProfileFragment extends Fragment implements RecyclerViewInterface {
                                         recipeList.addAll(recipeArrayList);
 
                                         // Set up the accounts recycler view adapter
-                                        recipeAdapter1 = new RecipeAdapter1(getContext(), recipeList, recyclerViewInterface, "ProfilePage", requireActivity().getSupportFragmentManager());
+                                        recipeAdapter1 = new RecipeAdapter1(getContext(), recipeList, recyclerViewInterface, "ProfilePage");
                                         recyclerView.setAdapter(recipeAdapter1);
 
                                         // Call notifyDataSetChanged() on the adapter to refresh the RecyclerView

@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
                         } else {
                             // Else, set up the recycler view with the posts
-                            recipeAdapter1 = new RecipeAdapter1(getContext(), recipeList, recyclerViewInterface, "HomePage", null);
+                            recipeAdapter1 = new RecipeAdapter1(getContext(), recipeList, recyclerViewInterface, "HomePage");
                             recyclerView.setAdapter(recipeAdapter1);
 
                             // Call notifyDataSetChanged() on the adapter to refresh the RecyclerView

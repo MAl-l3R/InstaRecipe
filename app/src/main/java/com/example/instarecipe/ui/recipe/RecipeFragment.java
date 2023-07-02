@@ -46,6 +46,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.ortiz.touchview.TouchImageView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -85,7 +86,7 @@ public class RecipeFragment extends Fragment {
                         // Get all UI items
                         ScrollView recipeFragment = view.findViewById(R.id.recipeFragment);
                         ConstraintLayout recipeView = view.findViewById(R.id.recipe_view);
-                        ImageView foodPicIV = view.findViewById(R.id.food_pic);
+                        TouchImageView foodPicIV = view.findViewById(R.id.food_pic);
                         TextView foodNameTV = view.findViewById(R.id.food_name);
                         TextView timestampTV = view.findViewById(R.id.timestamp);
                         bigLike = view.findViewById(R.id.big_like);

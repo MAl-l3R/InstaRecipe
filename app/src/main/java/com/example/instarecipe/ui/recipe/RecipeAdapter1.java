@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -36,17 +35,17 @@ public class RecipeAdapter1 extends RecyclerView.Adapter<RecipeAdapter1.RecipeVi
     private final RecyclerViewInterface recyclerViewInterface;
     private static RecipeViewHolder1 selectedViewHolder;
     private static int selectedItemPosition = RecyclerView.NO_POSITION;
+    RecipeAdapter1 adapter;
     ArrayList<Recipe> recipeList;
-    FragmentManager fragmentManager;
     Context context;
     String viewPage;
 
-    public RecipeAdapter1(Context context, ArrayList<Recipe> recipeList, RecyclerViewInterface recyclerViewInterface, String viewPage, FragmentManager fragmentManager) {
+    public RecipeAdapter1(Context context, ArrayList<Recipe> recipeList, RecyclerViewInterface recyclerViewInterface, String viewPage) {
         this.context = context;
         this.recipeList = recipeList;
         this.recyclerViewInterface = recyclerViewInterface;
         this.viewPage = viewPage;
-        this.fragmentManager = fragmentManager;
+        this.adapter = this;
     }
 
     public ArrayList<Recipe> getRecipeList() {
@@ -111,10 +110,8 @@ public class RecipeAdapter1 extends RecyclerView.Adapter<RecipeAdapter1.RecipeVi
                                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // User clicked "Yes", call the removeRecipe method
-                                        if (fragmentManager != null) {
-                                            Database.deleteRecipe(recipe.getUid(), recipe.getRecipeID(), context, fragmentManager);
-                                        }
+                                        // User clicked "Yes", delete the recipe
+                                        Database.deleteRecipe(recipe.getUid(), recipe.getRecipeID(), context, recipeList, holder.getAdapterPosition(), adapter);
                                     }
                                 });
                                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

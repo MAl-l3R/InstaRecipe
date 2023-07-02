@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
@@ -293,7 +294,7 @@ public class Database {
                             } else {
 
                                 // If profile pic was not set, then set the default profile pic
-                                String defaultProfilePic = "https://firebasestorage.googleapis.com/v0/b/instarecipe-c2b09.appspot.com/o/profile_pics%2FdMb0JMOQR5dg6PbVW5LDLeefkNk1.jpg?alt=media&token=4653f4e1-a21f-4a37-9885-eded0fe276d4&_gl=1*5i7f*_ga*MTQ4NDE5NzU0My4xNjc1OTg3NzI2*_ga_CW55HF8NVT*MTY4NjUxNTQ3NS40MC4xLjE2ODY1MTk0NDcuMC4wLjA.";
+                                String defaultProfilePic = "https://firebasestorage.googleapis.com/v0/b/instarecipe-c2b09.appspot.com/o/profile_pics%2F164WmDTmOvXHU4WSr22cIGHhROM2.jpg?alt=media&token=9571155f-6e09-4e8a-a9bb-1a24e2707273";
                                 data.put("profilePic", defaultProfilePic);
                                         userFile.set(data)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -465,7 +466,7 @@ public class Database {
                 });
     }
 
-    public static void deleteRecipe(String uid, String recipeId, Context context, FragmentManager fragmentManager) {
+    public static void deleteRecipe(String uid, String recipeId, Context context, ArrayList<Recipe> recipeList, int position, RecipeAdapter1 recipeAdapter) {
         // Get the reference to the recipe image in Firebase Storage
         StorageReference imageRef = storageReference.child("recipe_images").child(recipeId + ".jpg");
 
@@ -488,28 +489,36 @@ public class Database {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                         // Remove the recipe from recipe file
+                                                        // First delete the comments collection from recipe file, then delete the recipe
                                                         DocumentReference recipeFile = db.collection("recipes").document(recipeId);
-                                                        recipeFile.delete()
-                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        recipeFile.collection("comments").get()
+                                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                     @Override
-                                                                    public void onSuccess(Void unused) {
-                                                                        // Recipe removed successfully
-                                                                        // Create an instance of the destination fragment
-                                                                        ProfileFragment profileFragment = new ProfileFragment();
-                                                                        // Start a new FragmentTransaction
-                                                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                                                        // Replace the current fragment with the destination fragment
-                                                                        fragmentTransaction.replace(R.id.frameLayout, profileFragment);
-                                                                        // Commit the transaction
-                                                                        fragmentTransaction.commit();
-                                                                        Toast.makeText(context, "Recipe Deleted", Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                })
-                                                                .addOnFailureListener(new OnFailureListener() {
-                                                                    @Override
-                                                                    public void onFailure(@NonNull Exception e) {
-                                                                        // Handle the exception if recipe removal fails
-                                                                        System.out.println(e.getMessage());
+                                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                        for (QueryDocumentSnapshot snapshot : task.getResult()) {
+                                                                            recipeFile.collection("comments").document(snapshot.getId()).delete();
+                                                                        }
+
+                                                                        // Now delete the entire recipe file
+                                                                        recipeFile.delete()
+                                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(Void unused) {
+                                                                                        // Remove recipe from recycler view
+                                                                                        recipeList.remove(position);
+                                                                                        recipeAdapter.notifyDataSetChanged();
+                                                                                        // Recipe removed successfully
+                                                                                        Toast.makeText(context, "Recipe Deleted", Toast.LENGTH_SHORT).show();
+                                                                                    }
+                                                                                })
+                                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                                    @Override
+                                                                                    public void onFailure(@NonNull Exception e) {
+                                                                                        // Handle the exception if recipe removal fails
+                                                                                        System.out.println(e.getMessage());
+                                                                                    }
+                                                                                });
+
                                                                     }
                                                                 });
                                                     }

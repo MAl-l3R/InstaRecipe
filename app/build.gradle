@@ -58,6 +58,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.6.0'
     // App Settings
     implementation 'pub.devrel:easypermissions:3.0.0'
+    // Touch Image View for Zooming
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
     // Image Cropper
     implementation 'com.github.yalantis:ucrop:2.2.6-native'
     // Glide (a fast and efficient image loading framework) [OR you could use Picasso]

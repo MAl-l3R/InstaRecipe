@@ -65,7 +65,7 @@ public class FavoritesFragment extends Fragment implements RecyclerViewInterface
 
                         } else {
                             // Else, set up the recycler view with the posts
-                            recipeAdapter1 = new RecipeAdapter1(getContext(), recipeList, recyclerViewInterface, "FavoritesPage", null);
+                            recipeAdapter1 = new RecipeAdapter1(getContext(), recipeList, recyclerViewInterface, "FavoritesPage");
                             recyclerView.setAdapter(recipeAdapter1);
 
                             // Call notifyDataSetChanged() on the adapter to refresh the RecyclerView
